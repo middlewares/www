@@ -3,9 +3,10 @@
 namespace Middlewares\Tests;
 
 use Middlewares\Www;
-use Zend\Diactoros\Request;
+use Middlewares\Utils\Dispatcher;
+use Middlewares\Utils\CallableMiddleware;
+use Zend\Diactoros\ServerRequest;
 use Zend\Diactoros\Response;
-use mindplay\middleman\Dispatcher;
 
 class WwwTest extends \PHPUnit_Framework_TestCase
 {
@@ -35,12 +36,13 @@ class WwwTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddWww($add, $uri, $result)
     {
+        $request = new ServerRequest([], [], $uri);
         $response = (new Dispatcher([
             new Www($add),
-            function () {
+            new CallableMiddleware(function () {
                 return new Response();
-            },
-        ]))->dispatch(new Request($uri));
+            }),
+        ]))->dispatch($request);
 
         $this->assertInstanceOf('Psr\\Http\\Message\\ResponseInterface', $response);
 
