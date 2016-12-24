@@ -4,10 +4,10 @@ namespace Middlewares;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use Interop\Http\Middleware\ServerMiddlewareInterface;
-use Interop\Http\Middleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
+use Interop\Http\ServerMiddleware\DelegateInterface;
 
-class Www implements ServerMiddlewareInterface
+class Www implements MiddlewareInterface
 {
     /**
      * @var bool Add or remove www
