@@ -2,11 +2,12 @@
 
 namespace Middlewares\Tests;
 
+use PHPUnit\Framework\TestCase;
 use Middlewares\Www;
 use Middlewares\Utils\Dispatcher;
 use Middlewares\Utils\Factory;
 
-class WwwTest extends \PHPUnit_Framework_TestCase
+class WwwTest extends TestCase
 {
     public function wwwProvider()
     {
