@@ -2,10 +2,10 @@
 
 namespace Middlewares;
 
-use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Message\ResponseInterface;
-use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 
 class Www implements MiddlewareInterface
 {
@@ -75,13 +75,10 @@ class Www implements MiddlewareInterface
         switch (count($host)) {
             case 1: //localhost (or similar)
                 return false;
-
             case 2: //example.com
                 return true;
-
             case 3: //example.co.uk
                 return $host[1] === 'co';
-
             default:
                 return false;
         }

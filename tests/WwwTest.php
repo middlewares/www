@@ -2,10 +2,10 @@
 
 namespace Middlewares\Tests;
 
-use PHPUnit\Framework\TestCase;
-use Middlewares\Www;
 use Middlewares\Utils\Dispatcher;
 use Middlewares\Utils\Factory;
+use Middlewares\Www;
+use PHPUnit\Framework\TestCase;
 
 class WwwTest extends TestCase
 {
@@ -32,6 +32,9 @@ class WwwTest extends TestCase
 
     /**
      * @dataProvider wwwProvider
+     * @param mixed $add
+     * @param mixed $uri
+     * @param mixed $result
      */
     public function testAddWww($add, $uri, $result)
     {
