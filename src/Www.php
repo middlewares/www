@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace Middlewares;
 
@@ -19,20 +20,15 @@ class Www implements MiddlewareInterface
      *
      * @param bool $www
      */
-    public function __construct($www = false)
+    public function __construct(bool $www = false)
     {
-        $this->www = (bool) $www;
+        $this->www = $www;
     }
 
     /**
      * Process a request and return a response.
-     *
-     * @param ServerRequestInterface  $request
-     * @param RequestHandlerInterface $handler
-     *
-     * @return ResponseInterface
      */
-    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler)
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $uri = $request->getUri();
         $host = $uri->getHost();
@@ -59,12 +55,8 @@ class Www implements MiddlewareInterface
      * - the host is "localhost"
      * - the host is a ip
      * - the host has already a subdomain, for example "subdomain.example.com".
-     *
-     * @param string $host
-     *
-     * @return bool
      */
-    private static function wwwCanBeAdded($host)
+    private static function wwwCanBeAdded(string $host): bool
     {
         if (empty($host) || filter_var($host, FILTER_VALIDATE_IP)) {
             return false;
