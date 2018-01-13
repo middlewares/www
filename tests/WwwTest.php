@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace Middlewares\Tests;
 
@@ -26,25 +27,21 @@ class WwwTest extends TestCase
             [false, 'http://www.example.co.uk', 'http://example.co.uk'],
             [false, 'http://www.example.com', 'http://example.com'],
             [false, 'http://ww1.example.com', 'http://ww1.example.com'],
+            [true, 'http://sub.domain.example.com', 'http://sub.domain.example.com'],
             [false, '', ''],
         ];
     }
 
     /**
      * @dataProvider wwwProvider
-     * @param mixed $add
-     * @param mixed $uri
-     * @param mixed $result
      */
-    public function testAddWww($add, $uri, $result)
+    public function testAddWww(bool $add, string $uri, string $result)
     {
         $request = Factory::createServerRequest([], 'GET', $uri);
 
         $response = Dispatcher::run([
             new Www($add),
         ], $request);
-
-        $this->assertInstanceOf('Psr\\Http\\Message\\ResponseInterface', $response);
 
         if ($uri === $result) {
             $this->assertEquals(200, $response->getStatusCode());
