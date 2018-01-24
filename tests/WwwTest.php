@@ -18,7 +18,7 @@ class WwwTest extends TestCase
             [true, 'http://example.com', 'http://www.example.com'],
             [true, 'http://example.co.uk', 'http://www.example.co.uk'],
             [true, 'http://www.example.com', 'http://www.example.com'],
-            [true, 'http://ww1.example.com', 'http://ww1.example.com'],
+            [true, 'http://ww1.example.com', 'http://www.ww1.example.com'],
             [true, 'http://0.0.0.0', 'http://0.0.0.0'],
             [true, '', ''],
             [false, 'http://localhost', 'http://localhost'],
@@ -27,7 +27,7 @@ class WwwTest extends TestCase
             [false, 'http://www.example.co.uk', 'http://example.co.uk'],
             [false, 'http://www.example.com', 'http://example.com'],
             [false, 'http://ww1.example.com', 'http://ww1.example.com'],
-            [true, 'http://sub.domain.example.com', 'http://sub.domain.example.com'],
+            [true, 'http://sub.domain.example.com', 'http://www.sub.domain.example.com'],
             [false, '', ''],
         ];
     }

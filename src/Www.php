@@ -3,10 +3,10 @@ declare(strict_types = 1);
 
 namespace Middlewares;
 
-use Psr\Http\Server\MiddlewareInterface;
-use Psr\Http\Server\RequestHandlerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 
 class Www implements MiddlewareInterface
 {
@@ -51,28 +51,16 @@ class Www implements MiddlewareInterface
 
     /**
      * Check whether the domain can add a www. subdomain.
-     * Returns false if:
-     * - the host is "localhost"
-     * - the host is a ip
-     * - the host has already a subdomain, for example "subdomain.example.com".
      */
     private static function wwwCanBeAdded(string $host): bool
     {
+        //is an ip?
         if (empty($host) || filter_var($host, FILTER_VALIDATE_IP)) {
             return false;
         }
 
-        $host = explode('.', $host);
-
-        switch (count($host)) {
-            case 1: //localhost (or similar)
-                return false;
-            case 2: //example.com
-                return true;
-            case 3: //example.co.uk
-                return $host[1] === 'co';
-            default:
-                return false;
-        }
+        //is "localhost" or similar?
+        $pieces = explode('.', $host);
+        return count($pieces) > 1 && $pieces[0] !== 'www';
     }
 }

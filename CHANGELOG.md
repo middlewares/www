@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 
 - Upgraded to the final version of PSR-15 `psr/http-server-middleware`
+- Only check if the host is an ip or a named host (ex: "localhost"), but not if the host has more subdomains. This allows to prepend "www" to multisubdomain hosts (example: `www.subdomain1.subdomain2.example.com`)
 
 ### Fixed
 
