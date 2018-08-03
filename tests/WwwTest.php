@@ -37,7 +37,7 @@ class WwwTest extends TestCase
      */
     public function testAddWww(bool $add, string $uri, string $result)
     {
-        $request = Factory::createServerRequest([], 'GET', $uri);
+        $request = Factory::createServerRequest('GET', $uri);
 
         $response = Dispatcher::run([
             new Www($add),

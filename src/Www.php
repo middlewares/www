@@ -3,6 +3,7 @@ declare(strict_types = 1);
 
 namespace Middlewares;
 
+use Middlewares\Utils\Traits\HasResponseFactory;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -10,6 +11,8 @@ use Psr\Http\Server\RequestHandlerInterface;
 
 class Www implements MiddlewareInterface
 {
+    use HasResponseFactory;
+
     /**
      * @var bool Add or remove www
      */
@@ -42,7 +45,7 @@ class Www implements MiddlewareInterface
         }
 
         if ($uri->getHost() !== $host) {
-            return Utils\Factory::createResponse(301)
+            return $this->createResponse(301)
                 ->withHeader('Location', (string) $uri->withHost($host));
         }
 
