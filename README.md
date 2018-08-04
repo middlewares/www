@@ -42,6 +42,9 @@ $response = $dispatcher->dispatch(new ServerRequest());
 
 Set `true` to add the www subdomain and `false` to remove it.
 
+#### `responseFactory(Psr\Http\Message\ResponseFactoryInterface $responseFactory)`
+
+A PSR-17 factory to create `301` responses.
 ---
 
 Please see [CHANGELOG](CHANGELOG.md) for more information about recent changes and [CONTRIBUTING](CONTRIBUTING.md) for contributing details.
