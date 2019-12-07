@@ -3,7 +3,6 @@ declare(strict_types = 1);
 
 namespace Middlewares;
 
-use Middlewares\Utils\Traits\HasResponseFactory;
 use Middlewares\Utils\Factory;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -13,19 +12,20 @@ use Psr\Http\Server\RequestHandlerInterface;
 
 class Www implements MiddlewareInterface
 {
-    use HasResponseFactory;
+    /**
+     * @var bool
+     */
+    private $www;
 
     /**
-     * @var bool Add or remove www
+     * @var ResponseFactoryInterface
      */
-    private $www = false;
+    private $responseFactory;
 
     /**
      * Configure whether the www subdomain should be added or removed.
-     *
-     * @param bool $www
      */
-    public function __construct(bool $www = false, ResponseFactoryInterface $responseFactory = null)
+    public function __construct(bool $www, ResponseFactoryInterface $responseFactory = null)
     {
         $this->www = $www;
         $this->responseFactory = $responseFactory ?: Factory::getResponseFactory();
@@ -48,7 +48,7 @@ class Www implements MiddlewareInterface
         }
 
         if ($uri->getHost() !== $host) {
-            return $this->createResponse(301)
+            return $this->responseFactory->createResponse(301)
                 ->withHeader('Location', (string) $uri->withHost($host));
         }
 

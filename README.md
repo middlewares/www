@@ -5,7 +5,6 @@
 [![Build Status][ico-travis]][link-travis]
 [![Quality Score][ico-scrutinizer]][link-scrutinizer]
 [![Total Downloads][ico-downloads]][link-downloads]
-[![SensioLabs Insight][ico-sensiolabs]][link-sensiolabs]
 
 Middleware to add or remove the `www` subdomain in the host uri and returns a redirect response. The following types of hosts wont be changed:
 
@@ -14,7 +13,7 @@ Middleware to add or remove the `www` subdomain in the host uri and returns a re
 
 ## Requirements
 
-* PHP >= 7.0
+* PHP >= 7.2
 * A [PSR-7 http library](https://github.com/middlewares/awesome-psr15-middlewares#psr-7-implementations)
 * A [PSR-15 middleware dispatcher](https://github.com/middlewares/awesome-psr15-middlewares#dispatcher)
 
@@ -26,25 +25,26 @@ This package is installable and autoloadable via Composer as [middlewares/www](h
 composer require middlewares/www
 ```
 
-## Example
-
-```php
-$dispatcher = new Dispatcher([
-	new Middlewares\Www(false)
-]);
-
-$response = $dispatcher->dispatch(new ServerRequest());
-```
-
-## Options
-
-#### `__construct(bool $www)`
+## Usage
 
 Set `true` to add the www subdomain and `false` to remove it.
 
-#### `responseFactory(Psr\Http\Message\ResponseFactoryInterface $responseFactory)`
+```php
+//Remove www
+$www = new Middlewares\Www(false);
 
-A PSR-17 factory to create `301` responses.
+//Add www
+$www = new Middlewares\Www(true);
+```
+
+Optionally, you can provide a `Psr\Http\Message\ResponseFactoryInterface` as the second argument to create the redirect response (`301`). If it's not defined, [Middleware\Utils\Factory](https://github.com/middlewares/utils#factory) will be used to detect it automatically.
+
+```php
+$responseFactory = new MyOwnResponseFactory();
+
+$www = new Middlewares\Www(true, $responseFactory);
+```
+
 ---
 
 Please see [CHANGELOG](CHANGELOG.md) for more information about recent changes and [CONTRIBUTING](CONTRIBUTING.md) for contributing details.
@@ -56,10 +56,8 @@ The MIT License (MIT). Please see [LICENSE](LICENSE) for more information.
 [ico-travis]: https://img.shields.io/travis/middlewares/www/master.svg?style=flat-square
 [ico-scrutinizer]: https://img.shields.io/scrutinizer/g/middlewares/www.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/middlewares/www.svg?style=flat-square
-[ico-sensiolabs]: https://img.shields.io/sensiolabs/i/68cf669f-15ca-4bfa-8cb2-7400f984a228.svg?style=flat-square
 
 [link-packagist]: https://packagist.org/packages/middlewares/www
 [link-travis]: https://travis-ci.org/middlewares/www
 [link-scrutinizer]: https://scrutinizer-ci.com/g/middlewares/www
 [link-downloads]: https://packagist.org/packages/middlewares/www
-[link-sensiolabs]: https://insight.sensiolabs.com/projects/68cf669f-15ca-4bfa-8cb2-7400f984a228
