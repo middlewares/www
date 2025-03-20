@@ -25,7 +25,7 @@ class Www implements MiddlewareInterface
     /**
      * Configure whether the www subdomain should be added or removed.
      */
-    public function __construct(bool $www, ResponseFactoryInterface $responseFactory = null)
+    public function __construct(bool $www, ?ResponseFactoryInterface $responseFactory = null)
     {
         $this->www = $www;
         $this->responseFactory = $responseFactory ?: Factory::getResponseFactory();
@@ -67,6 +67,7 @@ class Www implements MiddlewareInterface
 
         //is "localhost" or similar?
         $pieces = explode('.', $host);
+
         return count($pieces) > 1 && $pieces[0] !== 'www';
     }
 }
