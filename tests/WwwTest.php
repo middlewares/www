@@ -10,7 +10,10 @@ use PHPUnit\Framework\TestCase;
 
 class WwwTest extends TestCase
 {
-    public function wwwProvider()
+    /**
+     * @return array<array<bool|string>>
+     */
+    public function wwwProvider(): array
     {
         return [
             [true, 'http://localhost', 'http://localhost'],
@@ -35,7 +38,7 @@ class WwwTest extends TestCase
     /**
      * @dataProvider wwwProvider
      */
-    public function testAddWww(bool $add, string $uri, string $result)
+    public function testAddWww(bool $add, string $uri, string $result): void
     {
         $request = Factory::createServerRequest('GET', $uri);
 
